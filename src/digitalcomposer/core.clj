@@ -1,10 +1,15 @@
 (ns digitalcomposer.core
-  (:require [ring.adapter.jetty :as jetty]))
+  (:require [ring.adapter.jetty :as jetty]
+            [digitalcomposer.views.layout :as layout]
+            [digitalcomposer.views.player :as player]
+            [compojure.core :refer [defroutes GET ANY]]
+            [compojure.route :as route]
+            [compojure.handler :as handler]))
 
-(defn handler [request]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body "Hello world!"})
+(defroutes routes
+  (GET "/" [] (layout/page "Digital Composer" (player/player))))
+
+(def application (handler/site routes))
 
 (defn -main []
-  (jetty/run-jetty handler {:port 3000}))
+  (jetty/run-jetty application {:port 3000 :join? false}))
