@@ -7,7 +7,8 @@
             [compojure.handler :as handler]))
 
 (defroutes routes
-  (GET "/" [] (layout/page "Digital Composer" (player/player))))
+  (GET "/" [] (layout/page "Digital Composer" (player/player)))
+  (route/resources "/"))
 
 (def application (handler/site routes))
 
