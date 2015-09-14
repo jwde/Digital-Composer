@@ -7,4 +7,5 @@
       [:title title]
       (include-css "css/player.css")]
     [:body [:div content]
+      (include-js "js/jquery.min.js")
       (include-js "js/player.js")]))

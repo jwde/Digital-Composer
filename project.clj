@@ -7,5 +7,6 @@
                  [ring/ring-core "1.4.0"]
                  [ring/ring-jetty-adapter "1.4.0"]
                  [hiccup "1.0.5"]
-                 [compojure "1.4.0"]]
+                 [compojure "1.4.0"]
+                 [org.clojure/data.json "0.2.6"]]
   :main digitalcomposer.core)
