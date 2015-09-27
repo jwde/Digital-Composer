@@ -7,9 +7,10 @@ $(window).load(function() {
     masterGain.connect(context.destination);
 
     /* middle 3 piano octave frequencies */
-    var pianoFreqs = [130.813, 138.591, 146.832, 155.563, 164.814, 174.614, 184.997, 195.998, 207.652, 220.000, 233.082, 246.942, 
-    261.626, 277.183, 293.665, 311.127, 329.628, 349.228, 369.994, 391.995, 415.305, 440.000, 466.164, 493.883, 
-    523.251, 554.365, 587.330, 622.254, 659.255, 698.456, 739.989, 783.991, 830.609, 880.000, 932.328, 987.767]
+    var baseFreq = 130.813;
+    function frequency(step) {
+        return Math.pow(2, step/12.0) * baseFreq;
+    }
 
     /* memoize a function -- not currently in use */
     function memoize(func) {
@@ -64,7 +65,7 @@ $(window).load(function() {
         if (steps[0] != 0) {
             var noteIndex = (songKey.base + songKey.notes[(steps[0] - 1) % 7]);
             var octaveMul = Math.floor(Math.pow(2, (steps[0] - 1) / 7));
-            var note = new compoundWave(pianoFreqs[noteIndex] * octaveMul, instrument);
+            var note = new compoundWave(frequency(noteIndex) * octaveMul, instrument);
             note.play();
         }
         setTimeout(function() {
