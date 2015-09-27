@@ -33,14 +33,14 @@ The more successful attempts at music composition AIs have used recurrent neural
 
 With the planned approach of ranking melodies comparatively, one logical way to structure the algorithm would be a genetic algorithm to determine behavior of a recurrent neural net. Melody comparisons can contribute to <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a> for each gene. Then, every so often we can progress to the next generation by breeding the most successful genes probabilistically by ELO ranking.<br>
 
-<h4>Desired attributes of the algorithm:</h4><br>
+<h4>Desired attributes of the algorithm:</h4>
 <ul>
 <li>Individual melodies composed by one gene must be distinct. Having a gene that can only generate one good melody isn't very interesting.</li>
 <li>The algorithm must be aware of global structure so that it can create melodies with a cohesive theme</li>
 <li>The set of possible outputs must be limited. If the algorithm has too much freedom we will never converge on favorable behavior. For example, it makes senes to limit the algorithm to generating notes within some number of half steps of a baseline.</li>
 </ul>
 
-<h4>Ideas</h4><br>
+<h4>Ideas</h4>
 <ul>
 <li>To achieve song-specific global theme without forcing the composition on top of an existing structure as part of the output, we can create a randomized vector for each composition that defines structure but, unlike a chord progression, is not incorporated in the output.</li>
 <li>To limit the search space, we can restrict each song's notes to the notes in a chosen key, and snap timing to predefined steps.
