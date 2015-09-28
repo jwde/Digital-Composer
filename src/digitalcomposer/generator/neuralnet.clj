@@ -1,35 +1,45 @@
 (ns digitalcomposer.generator.neuralnet
- (:use [enclog.nnets]
-       [enclog.training]
-       [enclog.normalization]
-       [enclog.util])
+ (:use [core.matrix])
+; (:use [enclog.nnets]
+;       [enclog.training]
+;       [enclog.normalization]
+;       [enclog.util])
 ; (use '[cemerick.pomegranate :only (add-dependencies)])
 ; (add-dependencies :coordinates '[[enclog "0.6.3"]]
 ;                   :repositories (merge cemerick.pomegranate.aether/maven-central
 ;                       {"clojars" "http://clojars.org/repo"}))
 ; (use '[enclog nnets training])
  )
-;; an implementation of an Elman Recurrent Neural Network with weights seeded by a
-;; genetic algorithm. Provides means to generate initial genes and parse genes.
 
+;; a simple Jordan network with one hidden layer:
+;; inputs: randomized song-specific vector (inspiration),
+;;         most recent 10 notes, or the tonic
+;; output: next note
 
+(defn activation [x] (Math/tanh x))
+(defn dactivation [x] (- 1.0 (* y y)))
+
+(defn propagateLayer [prev weights]
+ (mapv activation (mapv #(reduce + %) (* prev (transpose weights)))))
+
+(defn propagateNetwork [in hidden out]
+ (propagateLayer (propagateLayer in hidden) out)
+)
+
+(def inputLen 10)
+(def hiddenLen 5)
+(def outLen 1)
 (def initialWeightRange 2)
 
-;; A gene is a flat structure containing all the weights needed to compute the output
-;; of the neural network given an input
-(defn makeGene
- "generates a random gene to be used for the neural network"
- [inSize outSize layerSize numLayers]
- (take (+ (* inSize layerSize) (+ (* (- numLayers 1) (* layerSize layerSize)) (* layerSize outSize))) 
-  (repeatedly #(- initialWeightRange (rand (* 2 initialWeightRange))))))
+(defn lazyRandomVec
+ "Returns a lazy list of random vectors in [-initialWeightRange, +initialWeightRange] of length n"
+  [n]
+  (repeatedly #(take n (repeatedly 
+    #(- initialWeightRange (rand (* 2 initialWeightRange))))))
+)
 
-(defn parseGene
- "takes in a flat gene and gives it the necessary structure"
- [gene inSize outSize layerSize numLayers]
- (let [inWeightsLen (* inSize layerSize) outWeightsLen (* outSize layerSize)
-       midWeightsLen (* (- numLayers 1) (* layerSize layerSize))]
-       
-    let [inWeights (take inWeightsLen gene) outWeights (take-last outWeightsLen gene)
-         midWeights (take (midWeightsLen) (drop (inWeightsLen) gene))]
-         (vector ;; left off here -- maybe use LSTM instead of elman?))
- )
+(defn makeGene
+ "Makes a new randomized gene, consisting of hidden and output weights"
+ (let [hidden (take inputLen (lazyRandomVec hiddenLen)) 
+       out (take hiddenLen ()lazyRandomVec outLen)] (:hidden hidden :out out)) 
+)
