@@ -41,5 +41,5 @@
 (defn makeGene
  "Makes a new randomized gene, consisting of hidden and output weights"
  (let [hidden (take inputLen (lazyRandomVec hiddenLen)) 
-       out (take hiddenLen ()lazyRandomVec outLen)] (:hidden hidden :out out)) 
+       out (take hiddenLen (lazyRandomVec outLen))] (:hidden hidden :out out)) 
 )
