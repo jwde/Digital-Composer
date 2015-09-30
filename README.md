@@ -22,14 +22,14 @@ The user will compare two melodies and determine a winner. This will be used as 
 
 <h3>Checklist</h3>
 Simple melody-synthesizer frontend -- audio synthesizing, timing occasionally buggy<br>
-Backend learning algorithm -- in progress -- planning architecture for proof of concept<br>
+Backend learning algorithm -- in progress -- simple jordan network implemented, but not getting useful results<br>
 Frontend feedback -- not started<br>
 Gene database -- not started<br>
 
 
 <h3>Backend Learning Algorithm</h3>
 <h4>Proposed architecture</h4>
-The more successful attempts at music composition AIs have used recurrent neural networks. Candidates for this project include <a href="https://en.wikipedia.org/wiki/Long_short-term_memory">LSTM</a> and <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network#Elman_networks_and_Jordan_networks">Elman</a> networks. It may also be helpful to evolve structure as well as weights. This would add a lot of complexity, but might help us evolve better networks faster. For this, we should consider <a href="https://en.wikipedia.org/wiki/Neuroevolution_of_augmenting_topologies">NEAT</a><br>
+The more successful attempts at music composition AIs have used recurrent neural networks. Candidates for this project include <a href="https://en.wikipedia.org/wiki/Long_short-term_memory">LSTM</a> and <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network#Elman_networks_and_Jordan_networks">Elman / Jordan</a> networks. It may also be helpful to evolve structure as well as weights. This would add a lot of complexity, but might help us evolve better networks faster. For this, we should consider <a href="https://en.wikipedia.org/wiki/Neuroevolution_of_augmenting_topologies">NEAT</a><br>
 
 With the planned approach of ranking melodies comparatively, one logical way to structure the algorithm would be a genetic algorithm to determine behavior of a recurrent neural net. Melody comparisons can contribute to <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a> for each gene. Then, every so often we can progress to the next generation by breeding the most successful genes probabilistically by ELO ranking.<br>
 

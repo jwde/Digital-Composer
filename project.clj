@@ -10,5 +10,6 @@
                  [compojure "1.4.0"]
                  [org.clojure/data.json "0.2.6"]
                  [org.encog/encog-core "3.2.0"]
-                 [enclog "0.6.3"]]
+                 [enclog "0.6.3"]
+                 [net.mikera/core.matrix "0.41.0"]]
   :main digitalcomposer.core)
