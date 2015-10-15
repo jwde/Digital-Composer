@@ -5,7 +5,7 @@
 (defn nextStep
  "Generates the next step of a song"
  [bpm songKey gene steps insp]
-   (int (first (neuralnet/propagateNetwork 
+   (int (* 30 (first (neuralnet/propagateNetwork 
          (concat 
                    (into [] (take-last neuralnet/historyLen
                              (concat 
@@ -13,7 +13,7 @@
                                (repeat 0))
                               steps)))
                    insp)
-         (:hidden gene) (:out gene))))
+         (:hidden gene) (:out gene)))))
 )
 
 ;; We need to figure out a way to end the song within a consistent range,
@@ -25,7 +25,7 @@
   [bpm songKey gene]
   (loop [insp (take neuralnet/inspLen (repeatedly #(rand 1)))
          steps []]
-        (if (and (= 0 (last steps)) (> (count steps) 10))
+        (if (or (and (= 0 (last steps)) (> (count steps) 10)) (> (count steps) 40))
             steps
             (recur insp (conj steps (nextStep bpm songKey gene steps insp)))
         )
